@@ -179,7 +179,11 @@ int main(void)
         input_bits_set(bits, ABS_MT_POSITION_X);
         CHECK(input_bits_test(bits, ABS_MT_POSITION_X), "置位后应当读得到");
         CHECK(!input_bits_test(bits, ABS_MT_POSITION_Y), "没置的位不能被误读");
-        CHECK(N_ABS >= 2, "位掩码数组长度 %d 够装下 ABS 位", N_ABS);
+        /* 容量断言要按"每 long 多少位"算，不能写死 N_ABS >= 2：
+           32 位 long 需要 2 个字，64 位 long 只需 1 个字（CI 的 ubuntu 就是这种）。 */
+        CHECK((int)(N_ABS * 8 * sizeof(unsigned long)) >= ABS_MAX + 1,
+              "位掩码容量 %d bit 够装下 ABS_MAX+1 = %d bit",
+              (int)(N_ABS * 8 * sizeof(unsigned long)), ABS_MAX + 1);
     }
 
     printf("\n=== 结果: %s (%d 项失败) ===\n", g_fail ? "失败" : "全部通过", g_fail);

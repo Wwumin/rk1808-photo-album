@@ -8,6 +8,13 @@ All notable changes to this project are documented here. The format follows
 
 - CI: build the PC test harness and run the full-app smoke test on every push.
 
+### Fixed
+
+- Unit test asserted `N_ABS >= 2` for the absolute-axis bitmask, which is only true
+  where `unsigned long` is 32 bits. The assertion now checks the actual capacity
+  (`N_ABS * 8 * sizeof(unsigned long) >= ABS_MAX + 1`), so the suite passes on
+  64-bit Linux as well as on MinGW.
+
 ## [1.0.0] — 2026-10-25
 
 First public release. Source-only repository: every bitmap, button sprite, chess
