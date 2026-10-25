@@ -7,6 +7,8 @@ All notable changes to this project are documented here. The format follows
 ## [Unreleased]
 
 - CI: build the PC test harness and run the full-app smoke test on every push.
+- CI: install `fonts-noto-cjk` before regenerating assets, so the art pipeline also runs
+  on a clean Linux runner.
 
 ### Fixed
 
@@ -14,6 +16,10 @@ All notable changes to this project are documented here. The format follows
   where `unsigned long` is 32 bits. The assertion now checks the actual capacity
   (`N_ABS * 8 * sizeof(unsigned long) >= ABS_MAX + 1`), so the suite passes on
   64-bit Linux as well as on MinGW.
+- The asset generators no longer hardcode `C:\Windows\Fonts\...`: `tools/fontkit.py`
+  resolves a CJK font per platform (Microsoft YaHei / SimHei on Windows, Noto Sans CJK
+  on Linux, DejaVu as a last resort) and honours the `ALBUM_FONT` environment variable.
+  When no candidate is installed, rendering falls back to Pillow's default bitmap font.
 
 ## [1.0.0] — 2026-10-25
 

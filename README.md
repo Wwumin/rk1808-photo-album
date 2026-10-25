@@ -87,6 +87,13 @@ make assets        # 11 backgrounds, 84 button sprites, tiles, pieces, snake, la
 cd test && make run    # the smoke test reads ../bmp
 ```
 
+The pipeline needs a **CJK-capable TrueType font**, because every label and number is
+rendered into the bitmaps. `tools/fontkit.py` looks for Microsoft YaHei / SimHei on
+Windows and Noto Sans CJK on Linux (`apt install fonts-noto-cjk` on Debian/Ubuntu, which
+is what CI does); override the lookup with `ALBUM_FONT=/path/to/font.ttc` when neither is
+installed. With no CJK font at all the generator still finishes, but Chinese labels come
+out as boxes.
+
 All styling is centralised in `tools/ui_style.py` (four palettes, rounded cards, border,
 left accent bar, font sizes). Change one file and every screen follows. Buttons are saved
 as hand-written **32-bit BMP headers** so the rounded corners really have `A=0`

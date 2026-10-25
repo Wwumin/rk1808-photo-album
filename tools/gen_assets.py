@@ -21,19 +21,29 @@ import os
 import struct
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
+from fontkit import pick as _pick_font
+
 # ---------------------------------------------------------------- 基本参数
 W, H = 1024, 600
 OUT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BMP_DIR = os.path.join(OUT_ROOT, "bmp")
 
-FONT_BOLD = r"C:\Windows\Fonts\msyhbd.ttc"   # 微软雅黑 Bold
-FONT_UI = r"C:\Windows\Fonts\msyh.ttc"       # 微软雅黑
-FONT_HEI = r"C:\Windows\Fonts\simhei.ttf"    # 黑体
-FONT_NUM = r"C:\Windows\Fonts\Deng.ttf"      # 等线(数字好看)
+# 跨平台字体查找（Windows 雅黑/黑体，Linux Noto Sans CJK，可用 ALBUM_FONT 覆盖）。
+FONT_BOLD = _pick_font("bold")
+FONT_UI = _pick_font("ui")
+FONT_HEI = _pick_font("hei")
+FONT_NUM = _pick_font("num")
 
 
 def F(path, size):
-    return ImageFont.truetype(path, size)
+    return ImageFont.truetype(path, size) if path else _default_font(size)
+
+
+def _default_font(size):
+    try:
+        return ImageFont.load_default(size)
+    except TypeError:
+        return ImageFont.load_default()
 
 
 # ---------------------------------------------------------------- 绘制工具

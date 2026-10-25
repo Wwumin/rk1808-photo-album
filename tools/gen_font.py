@@ -9,14 +9,23 @@
 import os
 from PIL import Image, ImageDraw, ImageFont
 
+from fontkit import pick as _pick_font
+
 OUT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FONT = r"C:\Windows\Fonts\simhei.ttf"   # 黑体，笔画粗，小字号可读性好
+FONT = _pick_font("hei")   # 黑体/Noto Sans CJK；找不到时退回内置点阵字体
 FIRST, LAST = 32, 126
 GW, GH = 8, 16
 
 
+def _default_font(size):
+    try:
+        return ImageFont.load_default(size)
+    except TypeError:
+        return ImageFont.load_default()
+
+
 def build_table():
-    font = ImageFont.truetype(FONT, 15)
+    font = ImageFont.truetype(FONT, 15) if FONT else _default_font(15)
     table = []
     cell_preview = Image.new("RGB", (GW * (LAST - FIRST + 1), GH), (0, 0, 0))
     dp = ImageDraw.Draw(cell_preview)

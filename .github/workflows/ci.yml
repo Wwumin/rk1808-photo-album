@@ -17,6 +17,12 @@ jobs:
       - name: Compiler info
         run: gcc --version | head -1
 
+      - name: Install a CJK font (the asset pipeline renders Chinese labels)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk
+          fc-list | grep -ci noto
+
       - name: Unit tests (2048 rules + touch autodetect)
         run: make -C test unit
 

@@ -17,12 +17,16 @@ ui_style.py  —  统一卡片样式库 (电子相册全部界面共用)
 import os
 from PIL import Image, ImageDraw, ImageFont
 
+from fontkit import pick as _pick_font
+
 W, H = 1024, 600
 
-FONT_BOLD = r"C:\Windows\Fonts\msyhbd.ttc"
-FONT_UI = r"C:\Windows\Fonts\msyh.ttc"
-FONT_HEI = r"C:\Windows\Fonts\simhei.ttf"
-FONT_NUM = r"C:\Windows\Fonts\Deng.ttf"
+# 跨平台 CJK 字体：Windows 用微软雅黑/黑体，CI 的 Linux 用 Noto Sans CJK，
+# 都找不到时返回 None，下面的 F() 会退回 Pillow 内置点阵字体（只够冒烟测试）。
+FONT_BOLD = _pick_font("bold")
+FONT_UI = _pick_font("ui")
+FONT_HEI = _pick_font("hei")
+FONT_NUM = _pick_font("num")
 
 # 两套主题：主界面偏蓝紫，相册二级偏青
 THEME_MAIN = {
