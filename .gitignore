@@ -1,0 +1,28 @@
+# --- generated bitmap assets (run `make assets` to regenerate) ---
+bmp/
+*.bmp
+
+# --- build products ---
+*.o
+main
+album_test
+album_test.exe
+unit_2048
+unit_2048.exe
+unit_detect
+unit_detect.exe
+
+# --- runtime state written by the app on the board ---
+account.cfg
+
+# --- PC test artefacts ---
+test/out/
+test/*.log
+test/*.err
+
+# --- python cache ---
+__pycache__/
+*.pyc
+
+# --- generator preview image (tools/gen_font.py) ---
+_preview_font.png
