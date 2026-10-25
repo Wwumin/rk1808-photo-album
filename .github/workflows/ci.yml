@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  pc-tests:
+    name: PC tests (no board needed)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compiler info
+        run: gcc --version | head -1
+
+      - name: Unit tests (2048 rules + touch autodetect)
+        run: make -C test unit
+
+      - name: Install Pillow and regenerate all art assets
+        run: |
+          python3 -m pip install --quiet pillow
+          make assets PYTHON=python3
+
+      - name: Verify generated asset count
+        run: |
+          n=$(find bmp -name '*.bmp' | wc -l)
+          echo "generated BMP files: $n"
+          test "$n" -ge 150
+
+      - name: Full-app smoke test (46 scripted touches, real state machine)
+        run: make -C test run
