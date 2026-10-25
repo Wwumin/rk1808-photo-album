@@ -17,6 +17,7 @@
 #include "games.h"
 #include "display.h"
 #include "draw.h"
+#include "rng.h"
 
 #define U 0
 #define R 1
@@ -45,8 +46,8 @@ static void place_food(void)
 {
     int tries = 0;
     do {
-        s_food_r = rand() % G_SNK_ROWS;
-        s_food_c = rand() % G_SNK_COLS;
+        s_food_r = album_rand_below(G_SNK_ROWS);
+        s_food_c = album_rand_below(G_SNK_COLS);
         tries++;
         int occupied = 0;
         for (int i = 0; i < s_len; i++) {

@@ -47,6 +47,7 @@ SRCS     = album/main.c \
            album/font8x16.c \
            album/ui.c \
            album/touch.c \
+           album/rng.c \
            album/game2048.c \
            album/account.c \
            album/games.c \

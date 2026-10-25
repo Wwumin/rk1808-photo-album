@@ -10,13 +10,13 @@
 #         把 DRM 换成一块普通内存(drm_stub.c)。
 
 ALBUM_SRCS = ../album/display.c ../album/image.c ../album/draw.c ../album/font8x16.c \
-             ../album/ui.c ../album/game2048.c ../album/account.c \
+             ../album/ui.c ../album/rng.c ../album/game2048.c ../album/account.c \
              ../album/games.c ../album/ttt.c ../album/ms.c ../album/xq.c \
              ../album/tet.c ../album/snk.c \
              stub/host/touch_stub.c stub/host/drm_stub.c \
              ../album/main.c
 
-UNIT_2048     = ../album/game2048.c test2048.c
+UNIT_2048     = ../album/game2048.c ../album/rng.c test2048.c
 UNIT_DETECT   = autodetect.c test_autodetect.c
 
 CC      = gcc

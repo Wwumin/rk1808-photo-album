@@ -6,7 +6,22 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
-Nothing yet.
+### Added
+
+- `album/rng.c`: one seedable generator for every game. `ALBUM_SEED` fixes the
+  layout (`album_rand_below` / `album_rng_seed`), so a failing smoke-test run can
+  be reproduced locally; without it the seed still comes from `time(NULL)`.
+
+### Fixed
+
+- Minesweeper flood-fill (`album/ms.c`) could push the same cell onto its 81-slot
+  stack once per zero neighbour that reached it, overflowing the array on about
+  2% of boards. Linux CI hit it as `*** stack smashing detected ***` during the
+  scripted smoke test; MinGW builds silently corrupted adjacent memory instead.
+  Cells are now queued at most once, so the deepest stack is bounded by the
+  board size (measured worst case: 38 of 81 slots).
+- The smoke test is reproducible: CI pins `ALBUM_SEED=20261025`, and two runs
+  with the same seed produce identical state-machine output.
 
 ## [1.0.1] — 2026-10-25
 

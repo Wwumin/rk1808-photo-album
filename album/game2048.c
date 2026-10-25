@@ -5,10 +5,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
-#include <unistd.h>
 
 #include "game2048.h"
+#include "rng.h"
 
 /*
  * 每步都打印的话，随机对局跑几百步会刷屏，根本看不清。
@@ -37,27 +36,18 @@ static int  g_over;
 static int  g_has_snapshot;      /* 是否有一个"可以悔回去"的历史局面 */
 
 /* ------------------------------------------------------------------ 随机 */
-static int  g_seeded = 0;
-static unsigned g_seed_override = 0;
-
 /* 给测试用: 固定随机种子，让随机补牌可复现 */
 void g2048_set_seed(unsigned seed)
 {
-    g_seed_override = seed;
-    g_seeded = 0;
+    album_rng_seed(seed);
 }
 
 static int rnd_below(int n)
 {
-    /* 用标准 rand()/srand(): random()/srandom() 在 Windows 上编不了，
-     * 这个文件要能在 PC 上跑单测，所以选可移植的那对。
-     * 2048 对随机质量要求很低，rand() 足够。 */
-    if (!g_seeded) {
-        unsigned seed = g_seed_override ? g_seed_override : (unsigned)time(NULL);
-        srand(seed);
-        g_seeded = 1;
-    }
-    return (int)(rand() % n);
+    /* 统一走 rng.c: 播种优先级 = 显式 seed > ALBUM_SEED 环境变量 > time(NULL)。
+     * 以前这里自己用 time(NULL) 播种，导致同一份脚本每次跑出来的扫雷雷布局
+     * 都不同，冒烟测试不可复现。 */
+    return album_rand_below(n);
 }
 
 /* ------------------------------------------------------------------ 工具 */

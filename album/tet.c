@@ -15,6 +15,7 @@
 #include "games.h"
 #include "display.h"
 #include "draw.h"
+#include "rng.h"
 
 #define TET_COLS_  10
 #define TET_ROWS_  20
@@ -85,7 +86,7 @@ static int collides(const Shape *sh, int row, int col)
 static void spawn(void)
 {
     s_type = s_next;
-    s_next = rand() % TET_NPIECE;
+    s_next = album_rand_below(TET_NPIECE);
     s_cur = BASE[s_type - 1];
     s_rot = 0;
     s_row = -1;
@@ -105,7 +106,7 @@ static void tet_reset(void)
     s_level = 1;
     s_over = 0;
     s_drop_ms = 480;
-    s_next = rand() % TET_NPIECE;
+    s_next = album_rand_below(TET_NPIECE);
     s_last_drop = 0;
     spawn();
     gs_status("LINES %d  -  LEFT / ROT / RIGHT / DROP", 0);

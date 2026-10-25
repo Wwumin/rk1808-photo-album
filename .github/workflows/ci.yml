@@ -11,6 +11,12 @@ jobs:
   pc-tests:
     name: PC tests (no board needed)
     runs-on: ubuntu-latest
+    env:
+      # Fix the RNG seed: the smoke test drives the real state machine, so the
+      # minesweeper layout / snake food positions must be reproducible. Without
+      # this, a failing run cannot be reproduced locally (that is how the
+      # minesweeper stack-smash bug stayed hidden).
+      ALBUM_SEED: "20261025"
     steps:
       - uses: actions/checkout@v4
 
