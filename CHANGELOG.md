@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+Nothing yet.
+
+## [1.0.1] — 2026-10-25
+
 - CI: build the PC test harness and run the full-app smoke test on every push.
 - CI: install `fonts-noto-cjk` before regenerating assets, so the art pipeline also runs
   on a clean Linux runner.
