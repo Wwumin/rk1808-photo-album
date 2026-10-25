@@ -1,5 +1,8 @@
 # RK1808 Photo Album — DRM-direct 1024×600 touch frame, with six mini games
 
+[![CI](https://github.com/Wwumin/rk1808-photo-album/actions/workflows/ci.yml/badge.svg)](https://github.com/Wwumin/rk1808-photo-album/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A complete embedded-Linux C11 application for a Rockchip **RK1808** board driving a
 **1024×600** panel straight through DRM (no X11, no Wayland, no Qt, no libpng/libjpeg):
 a password-locked photo album with manual/auto slideshow, an options screen, six playable

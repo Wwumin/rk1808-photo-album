@@ -76,13 +76,15 @@ clean:
 	$(RM) $(OBJS) $(TARGET)
 
 # 生成全部素材（需要 python3 + Pillow），产物落在 ./bmp/ —— 仓库里不含 BMP
+# PYTHON 可覆盖：Windows 上通常是 "python"，Debian/Ubuntu 上通常只有 "python3"
+PYTHON ?= python
 assets:
-	python tools/gen_assets.py
-	python tools/gen_buttons.py
-	python tools/gen_extra.py
-	python tools/gen_games.py
-	python tools/make_landscapes.py
-	python tools/gen_font.py
+	$(PYTHON) tools/gen_assets.py
+	$(PYTHON) tools/gen_buttons.py
+	$(PYTHON) tools/gen_extra.py
+	$(PYTHON) tools/gen_games.py
+	$(PYTHON) tools/make_landscapes.py
+	$(PYTHON) tools/gen_font.py
 
 # PC 端测试：不需要板子、不需要交叉工具链，只要本机 gcc
 test:
