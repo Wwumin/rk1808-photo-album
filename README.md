@@ -3,6 +3,9 @@
 [![CI](https://github.com/Wwumin/rk1808-photo-album/actions/workflows/ci.yml/badge.svg)](https://github.com/Wwumin/rk1808-photo-album/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+📝 **Write-up (Chinese):** [一块板子都没有，我把嵌入式相册的 46 步点击跑进了 CI](https://zhuanlan.zhihu.com/p/2097820037214123459)
+— how the whole app is tested on a PC without a board.
+
 A complete embedded-Linux C11 application for a Rockchip **RK1808** board driving a
 **1024×600** panel straight through DRM (no X11, no Wayland, no Qt, no libpng/libjpeg):
 a password-locked photo album with manual/auto slideshow, an options screen, six playable
