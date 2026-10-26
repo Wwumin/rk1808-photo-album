@@ -6,7 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
-Nothing yet.
+### Added
+
+- `docs/boardless-harness.md`: the harness extracted as a reusable recipe (three seams,
+  script format, two-seed CI rule, and the failure classes it cannot catch), linked from
+  the README.
 
 ## [1.0.2] — 2026-10-26
 
