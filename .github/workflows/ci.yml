@@ -45,3 +45,12 @@ jobs:
 
       - name: Full-app smoke test (46 scripted touches, real state machine)
         run: make -C test run
+
+      # A pinned seed keeps failures reproducible but only ever exercises one
+      # layout. This second run uses a seed derived from the run number, so every
+      # push sees a fresh minesweeper/snake/2048 layout (the stack-smash bug was
+      # layout dependent and would have been caught here months earlier).
+      - name: Full-app smoke test (second layout, seed changes every run)
+        env:
+          ALBUM_SEED: ${{ github.run_number }}${{ github.run_attempt }}
+        run: make -C test run

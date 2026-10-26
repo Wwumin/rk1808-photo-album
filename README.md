@@ -82,6 +82,14 @@ The stubs live in `test/stub/`: `drm_stub.c` is a memory framebuffer that can du
 `touch_stub.c` replays `test/clicks.txt`, and `test/stub/inc/DRMwrap.h` shadows the vendor
 header. Nothing in this path needs Linux `input.h` or a real display.
 
+Every game draws from one seedable RNG (`album/rng.c`). Set `ALBUM_SEED` to replay a
+specific run — CI pins one seed for reproducibility and adds a second smoke run with a
+seed that changes on every push, so new layouts keep getting exercised:
+
+```bash
+ALBUM_SEED=20261025 make -C test run
+```
+
 ## Generated assets
 
 ```bash

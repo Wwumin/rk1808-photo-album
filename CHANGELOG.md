@@ -11,6 +11,9 @@ All notable changes to this project are documented here. The format follows
 - `album/rng.c`: one seedable generator for every game. `ALBUM_SEED` fixes the
   layout (`album_rand_below` / `album_rng_seed`), so a failing smoke-test run can
   be reproduced locally; without it the seed still comes from `time(NULL)`.
+- CI: a second full-app smoke run whose seed changes on every push, alongside the
+  pinned one. The pinned run stays reproducible; the extra run keeps exercising
+  fresh minesweeper/snake/2048 layouts.
 
 ### Fixed
 
